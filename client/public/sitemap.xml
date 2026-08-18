@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- حدّث YOUR-DOMAIN.example إلى الدومين النهائي قبل النشر. -->
+  <url><loc>https://YOUR-DOMAIN.example/</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/coverage</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/about</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/services/cockroaches</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/services/bed-bugs</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/services/rodents</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/services/termites</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/services/mosquitoes</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/services/general-pest-control</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/riyadh</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/makkah</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/madinah</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/eastern</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/qassim</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/asir</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/tabuk</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/hail</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/northern-borders</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/jazan</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/najran</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/al-bahah</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/al-jawf</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/riyadh-city</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/jeddah</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/makkah-city</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/madinah-city</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/dammam</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/khobar</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/al-ahsa</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/taif</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/abha</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/khamis-mushait</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/tabuk-city</loc></url>
+  <url><loc>https://YOUR-DOMAIN.example/locations/buraidah</loc></url>
+</urlset>
