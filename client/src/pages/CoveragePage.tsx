@@ -1,17 +1,193 @@
-/** Design reminder — Desert Shield Calm: coverage is a navigable editorial directory, not a dense spreadsheet. */
+import { useMemo, useState } from "react";
 import { Link } from "wouter";
-import { ArrowLeft, MapPinned, Search } from "lucide-react";
+import {
+  ArrowLeft,
+  ChevronLeft,
+  MapPinned,
+  Search,
+  ShieldCheck,
+} from "lucide-react";
 import { Seo } from "@/components/Seo";
 import { SiteLayout } from "@/components/SiteLayout";
 import { cityCatalog, coverageRegions } from "@/data/siteData";
 
+const normalize = (value: string) =>
+  value
+    .trim()
+    .toLocaleLowerCase("ar")
+    .replace(/[أإآ]/g, "ا")
+    .replace(/ة/g, "ه");
+
 export default function CoveragePage() {
+  const [query, setQuery] = useState("");
+  const normalizedQuery = normalize(query);
+
+  const filteredRegions = useMemo(
+    () =>
+      coverageRegions.filter(region =>
+        normalize(
+          [region.label, region.capital, ...region.cities].join(" ")
+        ).includes(normalizedQuery)
+      ),
+    [normalizedQuery]
+  );
+
+  const filteredCities = useMemo(
+    () =>
+      cityCatalog.filter(city =>
+        normalize(
+          [city.label, city.city, city.region, ...city.neighborhoods].join(" ")
+        ).includes(normalizedQuery)
+      ),
+    [normalizedQuery]
+  );
+
   return (
     <SiteLayout>
-      <Seo title="دليل تغطية مكافحة الحشرات في السعودية" description="استكشف صفحات مكافحة الحشرات حسب مناطق ومدن ومحافظات السعودية، ثم تعرف على الأحياء الشائعة ومسارات الخدمة المتخصصة." />
-      <section className="directory-hero"><div className="container"><span className="section-kicker light-kicker"><i /> من 13 منطقة إدارية</span><h1>دليل التغطية<br /><em>في مدن السعودية.</em></h1><p>اختر منطقتك للاطلاع على المدن والمحافظات، أو انتقل مباشرة إلى صفحة محلية لواحدة من المدن الرئيسية.</p><div className="directory-search-hint"><Search size={18}/><span>ابدأ باسم منطقتك، مدينتك، أو أقرب محافظة إلى موقعك.</span></div></div></section>
-      <section className="directory-main"><div className="container"><div className="directory-heading"><div><span className="section-kicker"><i /> المناطق</span><h2>كل منطقة تفتح<br /><em>مساراً محلياً.</em></h2></div><p>تُعرض المدن والمحافظات الشائعة في كل صفحة ليكون التنقل واضحاً، فيما يتم تحديد موعد الخدمة ونطاقها الدقيق وفق موقع العميل.</p></div><div className="region-directory-grid">{coverageRegions.map((region, index) => <Link href={`/locations/${region.slug}`} key={region.slug} className={`region-directory-card ${index === 0 ? "region-directory-featured" : ""}`}><span>0{index + 1}</span><MapPinned size={21}/><h3>{region.label}</h3><p>{region.cities.slice(0, index === 0 ? 8 : 5).join(" · ")}</p>{index === 0 && <div className="featured-route"><i /><i /><i /><b>منطقة الانطلاق</b></div>}<b>استعراض المدن <ArrowLeft size={16}/></b></Link>)}</div></div></section>
-      <section className="city-directory"><div className="container"><div className="section-head compact-head"><div><span className="section-kicker"><i /> صفحات مدن</span><h2>ابحث باسم<br /><em>مدينتك مباشرة.</em></h2></div><p>صفحات محلية بأحياء شائعة وأقسام خدمات مرتبطة باحتياج المنازل والمنشآت.</p></div><div className="city-directory-links">{cityCatalog.map((city) => <Link href={`/locations/${city.slug}`} key={city.slug}><span>{city.city}</span><small>{city.region}</small><ArrowLeft size={17}/></Link>)}</div></div></section>
+      <Seo
+        title="دليل تغطية مكافحة الحشرات في السعودية"
+        description="استكشف صفحات مكافحة الحشرات حسب مناطق ومدن ومحافظات السعودية، ثم تعرف على الأحياء الشائعة ومسارات الخدمة المتخصصة."
+      />
+
+      <section className="page-hero directory-hero">
+        <div className="page-hero-pattern" aria-hidden="true" />
+        <div className="container">
+          <nav className="breadcrumb breadcrumb-dark" aria-label="مسار الصفحة">
+            <Link href="/">الرئيسية</Link>
+            <ChevronLeft size={15} aria-hidden="true" />
+            <span aria-current="page">دليل التغطية</span>
+          </nav>
+          <div className="directory-hero-grid">
+            <div>
+              <span className="eyebrow eyebrow-light">
+                <MapPinned size={17} aria-hidden="true" /> 13 منطقة إدارية
+              </span>
+              <h1>دليل تغطية يصل بك إلى مدينتك.</h1>
+              <p>
+                ابحث باسم المنطقة أو المدينة أو الحي، ثم انتقل إلى الصفحة
+                المحلية الأقرب لموقعك.
+              </p>
+            </div>
+
+            <label className="coverage-search">
+              <span>ابحث في دليل التغطية</span>
+              <div>
+                <Search size={21} aria-hidden="true" />
+                <input
+                  type="search"
+                  value={query}
+                  onChange={event => setQuery(event.target.value)}
+                  placeholder="مثال: الرياض، جدة، الدمام..."
+                  autoComplete="off"
+                />
+              </div>
+              <small>
+                يمكنك البحث باسم المنطقة، المدينة أو أحد الأحياء الشائعة.
+              </small>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section
+        className="section directory-main"
+        aria-labelledby="regions-title"
+      >
+        <div className="container">
+          <div className="section-heading compact-heading">
+            <div>
+              <span className="eyebrow">
+                <MapPinned size={16} aria-hidden="true" /> المناطق
+              </span>
+              <h2 id="regions-title">كل منطقة تفتح مساراً محلياً أوضح.</h2>
+            </div>
+            <p>
+              {normalizedQuery
+                ? `نتائج البحث عن «${query.trim()}»`
+                : "اختر منطقتك لاستعراض المدن والمحافظات الشائعة داخل نطاقها."}
+            </p>
+          </div>
+
+          {filteredRegions.length > 0 ? (
+            <div className="region-directory-grid">
+              {filteredRegions.map((region, index) => (
+                <Link
+                  href={`/locations/${region.slug}`}
+                  key={region.slug}
+                  className={`region-directory-card ${region.slug === "riyadh" ? "region-directory-featured" : ""}`}
+                >
+                  <div className="region-card-head">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <MapPinned size={21} aria-hidden="true" />
+                  </div>
+                  <h3>{region.label}</h3>
+                  <p>{region.intro}</p>
+                  <div className="region-city-preview">
+                    {region.cities.slice(0, 4).map(city => (
+                      <span key={city}>{city}</span>
+                    ))}
+                  </div>
+                  <b>
+                    استعراض المنطقة <ArrowLeft size={17} aria-hidden="true" />
+                  </b>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="directory-empty" role="status">
+              <Search size={28} aria-hidden="true" />
+              <h3>لم نجد منطقة مطابقة</h3>
+              <p>جرّب كتابة اسم المدينة أو الحي بصيغة أقصر.</p>
+              <button type="button" onClick={() => setQuery("")}>
+                مسح البحث
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section
+        className="section city-directory"
+        aria-labelledby="cities-title"
+      >
+        <div className="container">
+          <div className="section-heading compact-heading">
+            <div>
+              <span className="eyebrow">
+                <ShieldCheck size={16} aria-hidden="true" /> صفحات المدن
+              </span>
+              <h2 id="cities-title">انتقل مباشرة إلى المدن الرئيسية.</h2>
+            </div>
+            <p>
+              صفحات محلية تعرض أحياء شائعة وخدمات مرتبطة باحتياج المنازل
+              والمنشآت.
+            </p>
+          </div>
+
+          {filteredCities.length > 0 ? (
+            <div className="city-directory-links">
+              {filteredCities.map(city => (
+                <Link href={`/locations/${city.slug}`} key={city.slug}>
+                  <span className="city-pin">
+                    <MapPinned size={19} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <b>{city.city}</b>
+                    <small>{city.region}</small>
+                  </div>
+                  <ArrowLeft size={18} aria-hidden="true" />
+                </Link>
+              ))}
+            </div>
+          ) : (
+            normalizedQuery && (
+              <p className="city-no-results">
+                لا توجد صفحة مدينة مستقلة مطابقة، راجع نتائج المناطق أعلاه.
+              </p>
+            )
+          )}
+        </div>
+      </section>
     </SiteLayout>
   );
 }
