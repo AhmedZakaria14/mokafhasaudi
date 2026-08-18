@@ -1,4 +1,4 @@
-/** Design reminder — Desert Shield Calm: SEO should be useful, precise and locally specific, never stuffed or sensational. */
+/** بيانات صفحات دقيقة ومحلية بلا حشو أو عبارات دعائية مبالغ فيها. */
 import { useEffect } from "react";
 import { brand } from "@/data/siteData";
 
@@ -8,7 +8,12 @@ type SeoProps = {
   schema?: Record<string, unknown>;
 };
 
-function upsertMeta(selector: string, attribute: "name" | "property", key: string, content: string) {
+function upsertMeta(
+  selector: string,
+  attribute: "name" | "property",
+  key: string,
+  content: string
+) {
   let element = document.head.querySelector<HTMLMetaElement>(selector);
   if (!element) {
     element = document.createElement("meta");
@@ -19,7 +24,9 @@ function upsertMeta(selector: string, attribute: "name" | "property", key: strin
 }
 
 function upsertLink(rel: string, href: string) {
-  let element = document.head.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);
+  let element = document.head.querySelector<HTMLLinkElement>(
+    `link[rel="${rel}"]`
+  );
   if (!element) {
     element = document.createElement("link");
     element.rel = rel;
@@ -42,19 +49,44 @@ function upsertJsonLd(id: string, data: Record<string, unknown>) {
 export function Seo({ title, description, schema }: SeoProps) {
   useEffect(() => {
     const canonical = window.location.href.split("#")[0];
-    const image = new URL(brand.hero, window.location.origin).href;
+    const image = new URL(brand.logo, window.location.origin).href;
     document.title = `${title} | درع الأثر`;
     upsertMeta('meta[name="description"]', "name", "description", description);
-    upsertMeta('meta[name="robots"]', "name", "robots", "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1");
-    upsertMeta('meta[property="og:title"]', "property", "og:title", `${title} | درع الأثر`);
-    upsertMeta('meta[property="og:description"]', "property", "og:description", description);
+    upsertMeta(
+      'meta[name="robots"]',
+      "name",
+      "robots",
+      "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    );
+    upsertMeta(
+      'meta[property="og:title"]',
+      "property",
+      "og:title",
+      `${title} | درع الأثر`
+    );
+    upsertMeta(
+      'meta[property="og:description"]',
+      "property",
+      "og:description",
+      description
+    );
     upsertMeta('meta[property="og:type"]', "property", "og:type", "website");
     upsertMeta('meta[property="og:locale"]', "property", "og:locale", "ar_SA");
     upsertMeta('meta[property="og:url"]', "property", "og:url", canonical);
     upsertMeta('meta[property="og:image"]', "property", "og:image", image);
-    upsertMeta('meta[name="twitter:card"]', "name", "twitter:card", "summary_large_image");
-    upsertMeta('meta[name="twitter:title"]', "name", "twitter:title", `${title} | درع الأثر`);
-    upsertMeta('meta[name="twitter:description"]', "name", "twitter:description", description);
+    upsertMeta('meta[name="twitter:card"]', "name", "twitter:card", "summary");
+    upsertMeta(
+      'meta[name="twitter:title"]',
+      "name",
+      "twitter:title",
+      `${title} | درع الأثر`
+    );
+    upsertMeta(
+      'meta[name="twitter:description"]',
+      "name",
+      "twitter:description",
+      description
+    );
     upsertLink("canonical", canonical);
     upsertJsonLd("dera-alathar-page-schema", {
       "@context": "https://schema.org",
@@ -63,8 +95,16 @@ export function Seo({ title, description, schema }: SeoProps) {
       description,
       inLanguage: "ar-SA",
       url: canonical,
-      isPartOf: { "@type": "WebSite", name: "درع الأثر", url: window.location.origin },
-      about: schema ?? { "@type": "Service", name: "حلول وقاية ومكافحة آفات", areaServed: { "@type": "Country", name: "المملكة العربية السعودية" } },
+      isPartOf: {
+        "@type": "WebSite",
+        name: "درع الأثر",
+        url: window.location.origin,
+      },
+      about: schema ?? {
+        "@type": "Service",
+        name: "حلول وقاية ومكافحة آفات",
+        areaServed: { "@type": "Country", name: "المملكة العربية السعودية" },
+      },
     });
   }, [description, schema, title]);
 

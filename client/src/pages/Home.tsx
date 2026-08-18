@@ -1,74 +1,229 @@
-/**
- * Design reminder — Desert Shield Calm: confident editorial flow, lightly layered sand panels, clean conversion path.
- */
 import { useState } from "react";
 import { Link } from "wouter";
 import {
-  ArrowLeft, Building2, Check, ChevronLeft, CircleDotDashed, ClipboardCheck,
-  Home as HomeIcon, MapPinned, Search, ShieldCheck, Sparkles, Sprout
+  ArrowLeft,
+  Building2,
+  Check,
+  ChevronLeft,
+  CircleDotDashed,
+  ClipboardCheck,
+  Home as HomeIcon,
+  MapPinned,
+  Search,
+  ShieldCheck,
+  Sparkles,
+  Sprout,
 } from "lucide-react";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Seo } from "@/components/Seo";
 import { SiteLayout } from "@/components/SiteLayout";
-import { brand, coverageRegions, faqs, serviceCatalog } from "@/data/siteData";
+import { coverageRegions, faqs, serviceCatalog } from "@/data/siteData";
 
-const serviceIcons = [Sparkles, HomeIcon, ShieldCheck, Building2, Sprout, CircleDotDashed];
+const serviceIcons = [
+  Sparkles,
+  HomeIcon,
+  ShieldCheck,
+  Building2,
+  Sprout,
+  CircleDotDashed,
+];
+
+const trustPoints = [
+  "معاينة تسبق قرار المعالجة",
+  "خطة واضحة للمنازل والمنشآت",
+  "تغطية محلية في مناطق المملكة",
+];
 
 export default function Home() {
-  const [activeRegion, setActiveRegion] = useState<(typeof coverageRegions)[number]>(coverageRegions[0]);
+  const [activeRegion, setActiveRegion] = useState<
+    (typeof coverageRegions)[number]
+  >(coverageRegions[0]);
 
   return (
     <SiteLayout>
-      <Seo title="مكافحة حشرات في السعودية" description="درع الأثر: دليل خدمات الوقاية ومكافحة الآفات للمنازل والمنشآت في مناطق ومدن السعودية، بخطة تبدأ من المعاينة الدقيقة." />
+      <Seo
+        title="مكافحة حشرات في السعودية"
+        description="درع الأثر: دليل خدمات الوقاية ومكافحة الآفات للمنازل والمنشآت في مناطق ومدن السعودية، بخطة تبدأ من المعاينة الدقيقة."
+      />
 
       <section className="hero-section" aria-labelledby="hero-title">
-        <div className="hero-backdrop" style={{ backgroundImage: `url(${brand.hero})` }} aria-hidden="true" />
-        <div className="hero-wash" aria-hidden="true" />
-        <div className="container hero-content">
-          <div className="hero-copy rise">
-            <span className="section-kicker light-kicker"><i /> وقاية تبدأ بفهم المكان</span>
-            <h1 id="hero-title">الآفات تتوقف عند <em>خط الحماية.</em></h1>
-            <p>حلول منظمة للمنازل والمنشآت في السعودية. نبدأ بقراءة الموقع، ثم نرتب المسار الأنسب للمعالجة والوقاية.</p>
+        <div className="hero-pattern" aria-hidden="true" />
+        <div className="container hero-grid">
+          <div className="hero-copy reveal">
+            <span className="eyebrow eyebrow-light">
+              <ShieldCheck size={17} aria-hidden="true" />
+              وقاية مدروسة في مدن السعودية
+            </span>
+            <h1 id="hero-title">
+              أوقف المشكلة عند
+              <span>أول نقطة دخول.</span>
+            </h1>
+            <p>
+              حلول منظمة لمكافحة الآفات تبدأ بفهم المكان، وتنتقل إلى معالجة
+              مناسبة وخطوات وقاية قابلة للتطبيق داخل المنزل أو المنشأة.
+            </p>
+
             <div className="hero-actions">
-              <Link className="primary-action" href="/coverage">استكشف التغطية في مدينتك <ArrowLeft size={18} /></Link>
-              <a className="text-action" href="#process">كيف نرتب الزيارة؟ <ChevronLeft size={17} /></a>
+              <Link className="primary-action hero-primary" href="/coverage">
+                اكتشف التغطية في مدينتك
+                <ArrowLeft size={19} aria-hidden="true" />
+              </Link>
+              <a className="secondary-action on-dark" href="#services">
+                استعرض الخدمات
+                <ChevronLeft size={18} aria-hidden="true" />
+              </a>
+            </div>
+
+            <ul className="hero-checks" aria-label="مزايا منهج الخدمة">
+              {trustPoints.map(point => (
+                <li key={point}>
+                  <Check size={16} aria-hidden="true" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div
+            className="hero-visual reveal reveal-delay"
+            aria-label="تصور لمسار حماية الموقع"
+          >
+            <div className="protection-board">
+              <div className="board-head">
+                <div>
+                  <span className="status-dot" aria-hidden="true" />
+                  <b>خطة حماية الموقع</b>
+                </div>
+                <small>فحص منظم</small>
+              </div>
+
+              <div className="protection-map" aria-hidden="true">
+                <span className="map-grid" />
+                <div className="home-outline">
+                  <HomeIcon size={58} />
+                  <span className="shield-node">
+                    <ShieldCheck size={30} />
+                  </span>
+                </div>
+                <i className="scan-point point-one" />
+                <i className="scan-point point-two" />
+                <i className="scan-point point-three" />
+                <span className="scan-line" />
+              </div>
+
+              <div className="board-metrics">
+                <div>
+                  <span>01</span>
+                  <p>
+                    <b>فحص الموقع</b>
+                    <small>قراءة النقاط الحساسة</small>
+                  </p>
+                </div>
+                <div>
+                  <span>02</span>
+                  <p>
+                    <b>اختيار المسار</b>
+                    <small>حسب نوع النشاط</small>
+                  </p>
+                </div>
+                <div>
+                  <span>03</span>
+                  <p>
+                    <b>تثبيت الوقاية</b>
+                    <small>توصيات للمتابعة</small>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="floating-proof proof-top">
+              <MapPinned size={19} aria-hidden="true" />
+              <span>
+                <b>13 منطقة</b>
+                <small>ضمن دليل التغطية</small>
+              </span>
+            </div>
+            <div className="floating-proof proof-bottom">
+              <ShieldCheck size={19} aria-hidden="true" />
+              <span>
+                <b>6 خدمات</b>
+                <small>مسارات متخصصة</small>
+              </span>
             </div>
           </div>
-          <aside className="hero-evidence rise-delayed" aria-label="مؤشرات الخدمة">
-            <div><strong>13</strong><span>منطقة إدارية ضمن دليل التغطية</span></div>
-            <div><strong>6</strong><span>مسارات علاج ووقاية متخصصة</span></div>
-            <div><strong>3</strong><span>مراحل واضحة من الفحص إلى المتابعة</span></div>
-          </aside>
         </div>
-        <div className="hero-trail" aria-hidden="true"><span /><span /><span /></div>
       </section>
 
-      <section className="trust-strip" aria-label="منهج الخدمة">
+      <section className="trust-strip" aria-label="ركائز الخدمة">
         <div className="container trust-grid">
-          <p><ShieldCheck size={22} /><span><b>قرار مبني على معاينة</b>لا على وصف مختصر للمشكلة</span></p>
-          <p><MapPinned size={22} /><span><b>دليل تغطية محلي</b>مدن ومحافظات وأحياء شائعة</span></p>
-          <p><ClipboardCheck size={22} /><span><b>خطة قابلة للفهم</b>خطوات مرتبة قبل التنفيذ وبعده</span></p>
+          <article>
+            <Search size={23} aria-hidden="true" />
+            <div>
+              <b>فحص قبل الإجراء</b>
+              <p>لأن كل موقع يختلف في مصدر النشاط ونقاط الدخول.</p>
+            </div>
+          </article>
+          <article>
+            <ClipboardCheck size={23} aria-hidden="true" />
+            <div>
+              <b>خطوات يمكن فهمها</b>
+              <p>تجهيز، معالجة، ثم توصيات وقائية واضحة.</p>
+            </div>
+          </article>
+          <article>
+            <MapPinned size={23} aria-hidden="true" />
+            <div>
+              <b>دليل محلي واسع</b>
+              <p>مناطق ومدن وأحياء شائعة في أنحاء المملكة.</p>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section className="service-section" id="services" aria-labelledby="services-title">
+      <section
+        className="section service-section"
+        id="services"
+        aria-labelledby="services-title"
+      >
         <div className="container">
-          <div className="section-head split-head">
+          <div className="section-heading">
             <div>
-              <span className="section-kicker"><i /> مسارات متخصصة</span>
-              <h2 id="services-title">خدمة تقرأ المشكلة<br /><em>قبل أن تعالجها.</em></h2>
+              <span className="eyebrow">
+                <Sparkles size={16} aria-hidden="true" /> مسارات متخصصة
+              </span>
+              <h2 id="services-title">اختر المشكلة، وسنوضح لك بداية المسار.</h2>
             </div>
-            <p>لا تبدأ كل الآفات من المكان نفسه، لذلك صمّمنا مسارات واضحة تساعدك على التعرف إلى ما يحتاجه موقعك قبل ترتيب المعاينة.</p>
+            <p>
+              صُممت كل خدمة حول سلوك مختلف للآفة داخل الموقع، حتى تصل إلى
+              معلومات مفيدة قبل ترتيب المعاينة.
+            </p>
           </div>
-          <div className="service-list">
+
+          <div className="service-grid">
             {serviceCatalog.map((service, index) => {
               const Icon = serviceIcons[index];
               return (
-                <Link href={`/services/${service.slug}`} key={service.slug} className="service-row">
-                  <span className="service-number">0{index + 1}</span>
-                  <span className="service-icon"><Icon size={22} /></span>
-                  <span className="service-body"><b>{service.label}</b><small>{service.summary}</small></span>
-                  <ArrowLeft className="service-arrow" size={20} />
+                <Link
+                  href={`/services/${service.slug}`}
+                  key={service.slug}
+                  className={`service-card ${index === 0 ? "service-card-featured" : ""}`}
+                >
+                  <div className="service-card-top">
+                    <span className="service-icon">
+                      <Icon size={24} aria-hidden="true" />
+                    </span>
+                    <small>{String(index + 1).padStart(2, "0")}</small>
+                  </div>
+                  <h3>{service.label}</h3>
+                  <p>{service.summary}</p>
+                  <span className="card-link">
+                    تفاصيل الخدمة <ArrowLeft size={17} aria-hidden="true" />
+                  </span>
                 </Link>
               );
             })}
@@ -76,80 +231,201 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="method-section" id="process" aria-labelledby="method-title">
-        <div className="container method-wrap">
-          <div className="method-visual">
-            <img src={brand.inspection} alt="فني يقوم بفحص هادئ داخل مطبخ منزل سعودي" />
-            <div className="image-stamp"><Search size={18} /><span>المعاينة ليست خطوة إضافية.<br />إنها بداية الخطة.</span></div>
+      <section
+        className="section process-section"
+        id="process"
+        aria-labelledby="process-title"
+      >
+        <div className="container process-grid">
+          <div className="process-intro">
+            <span className="eyebrow eyebrow-light">
+              <ClipboardCheck size={16} aria-hidden="true" /> مسار الخدمة
+            </span>
+            <h2 id="process-title">ثلاث مراحل تحوّل الملاحظة إلى خطة واضحة.</h2>
+            <p>
+              لا نختصر المشكلة في رش سريع. نقرأ الموقع أولاً، نرتب الأولويات، ثم
+              نوضح إجراءات الوقاية بعد المعالجة.
+            </p>
+            <Link href="/about" className="secondary-action on-dark">
+              تعرف على منهجنا <ArrowLeft size={18} aria-hidden="true" />
+            </Link>
           </div>
-          <div className="method-copy">
-            <span className="section-kicker"><i /> مسار الخدمة</span>
-            <h2 id="method-title">ثلاث خطوات،<br /><em>قرارات أوضح.</em></h2>
-            <div className="step-stack">
-              <article><span>01</span><div><h3>نقرأ موقعك</h3><p>نحدد نوع المكان، مناطق النشاط، والعوامل المؤثرة قبل اقتراح أي إجراء.</p></div></article>
-              <article><span>02</span><div><h3>نرتب المعالجة</h3><p>تُبنى الأولويات بحسب الحاجة ونطاق الموقع، مع توضيح ما يلزم قبل الزيارة.</p></div></article>
-              <article><span>03</span><div><h3>نثبت الوقاية</h3><p>تُستكمل الخطة بتوصيات عملية تقلل فرص عودة المشكلة وتحسن جاهزية المكان.</p></div></article>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <section className="coverage-section" id="coverage" aria-labelledby="coverage-title">
-        <div className="container">
-          <div className="section-head coverage-head">
-            <div>
-              <span className="section-kicker light-kicker"><i /> أين نغطي؟</span>
-              <h2 id="coverage-title">دليل سعودي<br /><em>ينطلق من مدينتك.</em></h2>
-            </div>
-            <Link href="/coverage" className="outline-action on-dark">عرض الدليل الكامل <ArrowLeft size={17} /></Link>
-          </div>
-          <div className="coverage-stage">
-            <div className="region-tabs" role="tablist" aria-label="مناطق التغطية">
-              {coverageRegions.map((region, index) => (
-                <button key={region.slug} role="tab" aria-selected={activeRegion.slug === region.slug} onClick={() => setActiveRegion(region)}>
-                  <span>0{index + 1}</span>{region.label}
-                </button>
-              ))}
-            </div>
-            <article className="region-card" aria-live="polite">
-              <span className="card-label">العاصمة الإدارية: {activeRegion.capital}</span>
-              <h3>{activeRegion.label}</h3>
-              <p>{activeRegion.intro}</p>
-              <div className="city-pills">{activeRegion.cities.map((city) => <span key={city}>{city}</span>)}</div>
-              <Link href={`/locations/${activeRegion.slug}`} className="region-link">استعرض مدن المنطقة <ArrowLeft size={17} /></Link>
+          <div className="process-steps">
+            <article>
+              <span>01</span>
+              <div>
+                <Search size={22} aria-hidden="true" />
+                <h3>نقرأ الموقع</h3>
+              </div>
+              <p>نحدد مناطق النشاط وعوامل الجذب ومسارات الدخول قبل أي توصية.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <div>
+                <ClipboardCheck size={22} aria-hidden="true" />
+                <h3>نرتب المعالجة</h3>
+              </div>
+              <p>
+                نختار الأولويات ونوضح المطلوب قبل الزيارة بما يناسب نوع المكان.
+              </p>
+            </article>
+            <article>
+              <span>03</span>
+              <div>
+                <ShieldCheck size={22} aria-hidden="true" />
+                <h3>نثبت الوقاية</h3>
+              </div>
+              <p>نقدّم خطوات عملية تساعد على تقليل فرص عودة النشاط مستقبلاً.</p>
             </article>
           </div>
         </div>
       </section>
 
-      <section className="residential-section" aria-labelledby="residential-title">
-        <div className="container residential-wrap">
-          <div className="residential-copy">
-            <span className="section-kicker"><i /> للمنازل والمنشآت</span>
-            <h2 id="residential-title">حماية تتكيف مع<br /><em>إيقاع المكان.</em></h2>
-            <p>المنزل، المقهى، مكتب العمل، والمستودع لا تتشابه في حركة الناس أو نقاط الحساسية. لذلك تبدأ الخطة من نوع الموقع، لا من قائمة خدمات عامة.</p>
-            <div className="audience-points">
-              <div><HomeIcon size={20} /><span><b>للمنازل</b>تركيز على الراحة، الخصوصية، والمناطق المستخدمة يومياً.</span></div>
-              <div><Building2 size={20} /><span><b>للمنشآت</b>قراءة محيط التشغيل ونقاط الوصول وإيقاع المكان.</span></div>
+      <section
+        className="section coverage-section"
+        aria-labelledby="coverage-title"
+      >
+        <div className="container">
+          <div className="section-heading coverage-heading">
+            <div>
+              <span className="eyebrow">
+                <MapPinned size={16} aria-hidden="true" /> دليل التغطية
+              </span>
+              <h2 id="coverage-title">
+                ابدأ من منطقتك، ثم انتقل إلى المدينة الأقرب.
+              </h2>
             </div>
-            <Link href="/services/general-pest-control" className="text-action dark-action">تعرف على خطة المكافحة العامة <ChevronLeft size={17} /></Link>
+            <Link href="/coverage" className="secondary-action">
+              عرض الدليل الكامل <ArrowLeft size={18} aria-hidden="true" />
+            </Link>
           </div>
-          <div className="residential-image"><img src={brand.family} alt="منزل سعودي هادئ يرمز إلى الراحة بعد ترتيب خطة وقاية" /></div>
+
+          <div
+            className="region-selector"
+            role="tablist"
+            aria-label="مناطق التغطية"
+          >
+            {coverageRegions.map(region => (
+              <button
+                key={region.slug}
+                type="button"
+                role="tab"
+                aria-selected={activeRegion.slug === region.slug}
+                onClick={() => setActiveRegion(region)}
+              >
+                {region.label}
+              </button>
+            ))}
+          </div>
+
+          <article className="active-region-card" aria-live="polite">
+            <div className="region-summary">
+              <span>
+                <MapPinned size={18} aria-hidden="true" /> العاصمة الإدارية:{" "}
+                {activeRegion.capital}
+              </span>
+              <h3>{activeRegion.label}</h3>
+              <p>{activeRegion.intro}</p>
+              <Link
+                href={`/locations/${activeRegion.slug}`}
+                className="primary-action"
+              >
+                استعرض نطاق المنطقة <ArrowLeft size={18} aria-hidden="true" />
+              </Link>
+            </div>
+            <div className="region-cities">
+              <small>مدن ومحافظات ضمن الدليل</small>
+              <div>
+                {activeRegion.cities.map(city => (
+                  <span key={city}>
+                    <Check size={15} aria-hidden="true" />
+                    {city}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
-      <section className="faq-section" aria-labelledby="faq-title">
-        <div className="container faq-wrap">
-          <div className="faq-intro">
-            <span className="section-kicker"><i /> إجابات أولية</span>
-            <h2 id="faq-title">تعرف على الخطوة<br /><em>التالية بثقة.</em></h2>
-            <p>هذه الإجابات تساعدك على ترتيب طلبك. أما الخطة المناسبة فتتحدد بعد معرفة موقعك ونوع الحاجة.</p>
+      <section
+        className="section audience-section"
+        aria-labelledby="audience-title"
+      >
+        <div className="container">
+          <div className="section-heading compact-heading">
+            <div>
+              <span className="eyebrow">
+                <ShieldCheck size={16} aria-hidden="true" /> حسب طبيعة الموقع
+              </span>
+              <h2 id="audience-title">الحماية تتكيّف مع استخدام المكان.</h2>
+            </div>
+            <p>
+              حركة المنزل تختلف عن المطعم أو المكتب، ولذلك تختلف معها نقاط الفحص
+              والأولويات.
+            </p>
           </div>
+
+          <div className="audience-grid">
+            <article className="audience-card audience-home">
+              <span className="audience-icon">
+                <HomeIcon size={29} aria-hidden="true" />
+              </span>
+              <small>01 · للمنازل</small>
+              <h3>راحة العائلة وخصوصية المساحة أولاً.</h3>
+              <p>
+                تركيز على المطابخ، غرف النوم، الحدائق، ومناطق الاستخدام اليومي.
+              </p>
+              <Link href="/services/general-pest-control">
+                استكشف الحلول السكنية <ArrowLeft size={17} />
+              </Link>
+            </article>
+            <article className="audience-card audience-business">
+              <span className="audience-icon">
+                <Building2 size={29} aria-hidden="true" />
+              </span>
+              <small>02 · للمنشآت</small>
+              <h3>خطة تراعي التشغيل وحركة الزوار.</h3>
+              <p>
+                قراءة للمداخل، التخزين، نقاط الخدمة، وإيقاع العمل داخل الموقع.
+              </p>
+              <Link href="/about">
+                تعرف على منهج المنشآت <ArrowLeft size={17} />
+              </Link>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="section faq-section" aria-labelledby="faq-title">
+        <div className="container faq-grid">
+          <div className="faq-intro">
+            <span className="eyebrow">
+              <CircleDotDashed size={16} aria-hidden="true" /> أسئلة شائعة
+            </span>
+            <h2 id="faq-title">إجابات تختصر عليك الخطوة الأولى.</h2>
+            <p>
+              تعرف على طريقة اختيار الخدمة وتجهيز الموقع قبل ترتيب المعاينة.
+            </p>
+            <div className="faq-help">
+              <ShieldCheck size={20} aria-hidden="true" />
+              <span>
+                <b>لم تجد نوع المشكلة؟</b>ابدأ من خدمة المكافحة العامة.
+              </span>
+            </div>
+          </div>
+
           <Accordion type="single" collapsible className="faq-accordion">
             {faqs.map((faq, index) => (
               <AccordionItem value={`faq-${index}`} key={faq.question}>
-                <AccordionTrigger className="faq-trigger"><span>0{index + 1}</span>{faq.question}</AccordionTrigger>
-                <AccordionContent className="faq-answer">{faq.answer}</AccordionContent>
+                <AccordionTrigger className="faq-trigger">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="faq-answer">
+                  {faq.answer}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
@@ -157,9 +433,20 @@ export default function Home() {
       </section>
 
       <section className="final-cta" aria-labelledby="final-title">
-        <div className="container final-cta-inner">
-          <div><span className="section-kicker light-kicker"><i /> الخطوة الأولى</span><h2 id="final-title">ابدأ من المكان،<br /><em>ثم دع الخطة تتشكل.</em></h2></div>
-          <div><p>افتح دليل التغطية، اختر مدينتك، ثم استكشف المسار الذي يطابق احتياج موقعك.</p><Link href="/coverage" className="primary-action sand-action">استكشف دليل المدن <ArrowLeft size={18} /></Link></div>
+        <div className="container final-cta-card">
+          <div>
+            <span className="eyebrow eyebrow-light">
+              <MapPinned size={16} aria-hidden="true" /> الخطوة الأولى
+            </span>
+            <h2 id="final-title">اعرف نطاق التغطية المناسب لموقعك.</h2>
+            <p>
+              اختر منطقتك أو مدينتك، ثم انتقل إلى الخدمة التي تطابق احتياج
+              المكان.
+            </p>
+          </div>
+          <Link href="/coverage" className="primary-action light-action">
+            افتح دليل المدن <ArrowLeft size={19} aria-hidden="true" />
+          </Link>
         </div>
       </section>
     </SiteLayout>

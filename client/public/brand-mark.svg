@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">درع الأثر</title>
+  <desc id="desc">درع أخضر يتوسطه مسار حماية ذهبي</desc>
+  <path fill="#0F4C3A" d="M32 3 56 12v16c0 16-9.8 27.2-24 33C17.8 55.2 8 44 8 28V12L32 3Z"/>
+  <path fill="#F8F6EF" d="M32 10.5 49 17v11c0 11.3-6.4 19.7-17 25-10.6-5.3-17-13.7-17-25V17l17-6.5Z"/>
+  <path fill="none" stroke="#0F4C3A" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M23 35.5c4.5-8.2 12.6-13.2 20-12.5-1.2 7.8-6.7 15.4-15.6 17.7"/>
+  <circle cx="22" cy="41" r="4" fill="#E1A33B"/>
+</svg>
